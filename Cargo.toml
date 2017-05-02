@@ -1,0 +1,9 @@
+[package]
+authors = ["David Karwowski <karwowski.david@gmail.com>"]
+name = "f4"
+version = "0.1.0"
+repository = "https://github.com/dkarwowski/f4"
+description = "Board support crate for the STM32F429I Discovery Board"
+
+[dependencies]
+stm32f429x = "0.3.0"
