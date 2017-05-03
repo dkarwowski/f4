@@ -81,33 +81,33 @@ pub trait GPIO {
     ///
     /// Expects the GPIO to be enabled on the clock separately.
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self;
+    ) -> &Self;
 
     /// Lock the pin configuration for the GPIO
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self;
+    fn pin_lock(&self, pin: Pins) -> &Self;
 
     /// Set the pin
-    fn pin_set(&mut self, pin: Pins) -> &mut Self;
+    fn pin_set(&self, pin: Pins) -> &Self;
 
     /// Reset the pin
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self;
+    fn pin_reset(&self, pin: Pins) -> &Self;
 }
 
 impl GPIO for Gpioa {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -137,7 +137,7 @@ impl GPIO for Gpioa {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -147,12 +147,12 @@ impl GPIO for Gpioa {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -160,13 +160,13 @@ impl GPIO for Gpioa {
 
 impl GPIO for Gpiob {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -196,7 +196,7 @@ impl GPIO for Gpiob {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -206,12 +206,12 @@ impl GPIO for Gpiob {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -219,13 +219,13 @@ impl GPIO for Gpiob {
 
 impl GPIO for Gpioc {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -255,7 +255,7 @@ impl GPIO for Gpioc {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -265,12 +265,12 @@ impl GPIO for Gpioc {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -278,13 +278,13 @@ impl GPIO for Gpioc {
 
 impl GPIO for Gpiod {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -314,7 +314,7 @@ impl GPIO for Gpiod {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -324,12 +324,12 @@ impl GPIO for Gpiod {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -337,13 +337,13 @@ impl GPIO for Gpiod {
 
 impl GPIO for Gpioe {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -373,7 +373,7 @@ impl GPIO for Gpioe {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -383,12 +383,12 @@ impl GPIO for Gpioe {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -396,13 +396,13 @@ impl GPIO for Gpioe {
 
 impl GPIO for Gpiof {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -432,7 +432,7 @@ impl GPIO for Gpiof {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -442,12 +442,12 @@ impl GPIO for Gpiof {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -455,13 +455,13 @@ impl GPIO for Gpiof {
 
 impl GPIO for Gpiog {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -491,7 +491,7 @@ impl GPIO for Gpiog {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -501,12 +501,12 @@ impl GPIO for Gpiog {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -514,13 +514,13 @@ impl GPIO for Gpiog {
 
 impl GPIO for Gpioh {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -550,7 +550,7 @@ impl GPIO for Gpioh {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -560,12 +560,12 @@ impl GPIO for Gpioh {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -573,13 +573,13 @@ impl GPIO for Gpioh {
 
 impl GPIO for Gpioi {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -609,7 +609,7 @@ impl GPIO for Gpioi {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -619,12 +619,12 @@ impl GPIO for Gpioi {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -632,13 +632,13 @@ impl GPIO for Gpioi {
 
 impl GPIO for Gpioj {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -668,7 +668,7 @@ impl GPIO for Gpioj {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -678,12 +678,12 @@ impl GPIO for Gpioj {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
@@ -691,13 +691,13 @@ impl GPIO for Gpioj {
 
 impl GPIO for Gpiok {
     fn pin_enable(
-        &mut self,
+        &self,
         pin: Pins,
         mode: Mode,
         speed: Speed,
         output: Output,
         pupd: PullUpPullDown
-    ) -> &mut Self {
+    ) -> &Self {
         for pinpos in 0..16 {
             let pos: u16 = 0x01 << pinpos;
             if pos & pin.bits() != 0 {
@@ -727,7 +727,7 @@ impl GPIO for Gpiok {
         self
     }
 
-    fn pin_lock(&mut self, pin: Pins) -> &mut Self {
+    fn pin_lock(&self, pin: Pins) -> &Self {
         let mut tmp: u32 = 0x00010000 | u32(pin.bits());
         self.lckr.write(|w| unsafe { w.bits(tmp) });
         self.lckr.write(|w| unsafe { w.bits(u32(pin.bits())) });
@@ -737,12 +737,12 @@ impl GPIO for Gpiok {
         self
     }
 
-    fn pin_set(&mut self, pin: Pins) -> &mut Self {
+    fn pin_set(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits())) });
         self
     }
 
-    fn pin_reset(&mut self, pin: Pins) -> &mut Self {
+    fn pin_reset(&self, pin: Pins) -> &Self {
         self.bsrr.write(|w| unsafe { w.bits(u32(pin.bits()) << 16) });
         self
     }
