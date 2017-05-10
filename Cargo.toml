@@ -1,8 +1,11 @@
 [package]
+name = "f4"
 authors = ["David Karwowski <karwowski.david@gmail.com>"]
 description = "Board support crate for the STM32F429I Discovery Board"
-name = "f4"
+keywords = ["no-std", "arm", "cortex-m", "stm32"]
 repository = "https://github.com/dkarwowski/f4"
+documentation = "https://docs.rs/f4"
+license = "MIT"
 version = "0.2.0"
 
 [dependencies]
