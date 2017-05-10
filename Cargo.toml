@@ -3,7 +3,7 @@ authors = ["David Karwowski <karwowski.david@gmail.com>"]
 description = "Board support crate for the STM32F429I Discovery Board"
 name = "f4"
 repository = "https://github.com/dkarwowski/f4"
-version = "0.1.0"
+version = "0.2.0"
 
 [dependencies]
 bitflags = "0.8.2"
